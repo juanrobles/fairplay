@@ -1,10 +1,10 @@
 require 'key_builder'
 
 class TableBuilder
-  attr_accessor :table, :full_key
+  attr_accessor :table, :key
 
   def initialize(key)
-    self.full_key = KeyBuilder.new(key).full_key
+    self.key = KeyBuilder.new(key).key
   end
 
   private
