@@ -1,14 +1,15 @@
 require 'spec_helper'
+require 'key_builder'
 
 describe TableBuilder do
 
-  let(:playfair_key) { "Playfajr example!" }
-  let(:key) { "PLAYFIREXMBCDGHKNOQSTUVWZ" }
+  let(:phrase) { "Playfajr example!" }
+  let(:key_provider) { KeyBuilder.new phrase }
 
-  context 'when given a key' do
-    it 'can query table for full key' do
-      tb = described_class.new playfair_key
-      tb.key.should_not be_nil
+  describe :key do
+    it 'can query for key' do
+      tb = described_class.new key_provider
+      tb.key.should == key_provider.key
     end
   end
 
