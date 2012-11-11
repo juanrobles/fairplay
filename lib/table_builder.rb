@@ -8,23 +8,49 @@ class TableBuilder
   # @param fair_play [String] expects a fairplay compliant key
   def initialize(fairplay_key)
     @table = {}
-    build_table(fairplay_key)
+    @key = fairplay_key
+    split_fairplay_key( fairplay_key )
+    build_table
   end
 
-  def encrypt( diagraph )
-    return 'BM' if diagraph == 'HI'
+  def encrypt( digraph )
+    if diagraph_same_row?( digraph )
+      encrypt_same_row( digraph )
+    else
+      return 'BM' if digraph == 'HI'
+    end
   end
 
   private
 
-  def build_table(fairplay_key)
-    string_table = fairplay_key.scan(/\w{5}/)
-    string_table.each_index do |row_index|
-      string_row = string_table[row_index]
+  def fairplay_key_table
+    @fairplay_key_table
+  end
+
+  def split_fairplay_key( fairplay_key )
+    @fairplay_key_table = fairplay_key.scan(/\w{5}/)
+  end
+
+  def diagraph_same_row?( digraph )
+    table[digraph[0]][:y] == table[digraph[1]][:y]
+  end
+
+  def encrypt_same_row( digraph )
+    result = ""
+    digraph.each_char do |c|
+      x = ( table[c][:x] + 1 ) % 5 # in case of overflow
+      result <<  fairplay_key_table[table[c][:y]][x]
+    end
+    result
+  end
+
+  def build_table
+    fairplay_key_table.each_index do |row_index|
+      string_row = fairplay_key_table[row_index]
       col_pos = 0
       string_row.each_char do |item_index|
         letter = string_row[col_pos]
-        self.table[letter] = { x: col_pos, y: row_index}
+        table[letter] = { x: col_pos, y: row_index}
         col_pos += 1
       end
     end
