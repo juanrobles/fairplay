@@ -14,7 +14,8 @@ class PlayfairCipher
     message = normalize_message( message )
     message = pad_message(message)
     digraphs = break_into_diagraphs( message )
-    encrypted = diagraphs.map { |diagraph| self.table.encrypt( diagraph ) }
+    encrypted = digraphs.map { |diagraph| @table.encrypt( diagraph ) }
+    encrypted.join
   end
 
   private

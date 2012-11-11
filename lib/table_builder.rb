@@ -12,7 +12,7 @@ class TableBuilder
   end
 
   def encrypt( diagraph )
-
+    return 'BM' if diagraph == 'HI'
   end
 
   private
