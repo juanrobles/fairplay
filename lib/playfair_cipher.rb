@@ -14,18 +14,21 @@ class PlayfairCipher
     message = normalize_message( message )
     message = pad_message(message)
     digraphs = break_into_diagraphs( message )
-
-
-    'BM' if message == 'HI'
+    encrypted = diagraphs.map { |diagraph| self.table.encrypt( diagraph ) }
   end
 
   private
   def break_into_diagraphs( message )
     digraphs = message.scan(/\w{2}/)
-    p digraphs
-
-
+    digraphs.map do |pair|
+      if pair[0] == pair[1]
+        "#{pair[0]}X"
+      else
+        pair
+      end
+    end
   end
+
   def pad_message( message )
     if message.length.odd?
       message += 'Z'

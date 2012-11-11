@@ -21,9 +21,9 @@ describe PlayfairCipher do
     end
     context 'when letters are in the same row' do
       it 'should encrypt using the immediate right' do
+        subject.encrypt('Hide the gold in the tree stump')
         subject.encrypt('HI').should == 'BM'
         # TEMP CODE
-        subject.encrypt('Hide the gold in the tree stump')
       end
     end
   end

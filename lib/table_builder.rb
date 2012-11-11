@@ -11,6 +11,10 @@ class TableBuilder
     build_table(fairplay_key)
   end
 
+  def encrypt( diagraph )
+
+  end
+
   private
 
   def build_table(fairplay_key)
