@@ -10,15 +10,33 @@ class PlayfairCipher
     @table = TableBuilder.new self.key
   end
 
-  def encrypt(message)
-    message = sanatize_message(message)
+  def encrypt( message )
+    message = normalize_message( message )
+    message = pad_message(message)
+    digraphs = break_into_diagraphs( message )
+
+
     'BM' if message == 'HI'
   end
 
   private
+  def break_into_diagraphs( message )
+    digraphs = message.scan(/\w{2}/)
+    p digraphs
 
-  def sanatize_message(message)
-    message.upcase.gsub(/[^A-Z]/,'')
+
+  end
+  def pad_message( message )
+    if message.length.odd?
+      message += 'Z'
+    else
+      message
+    end
+  end
+
+  def normalize_message( message )
+    message = message.upcase.gsub(/[^A-Z]/,'')
+    message.gsub('J','I')
   end
 
   def setup_key( user_phrase )
