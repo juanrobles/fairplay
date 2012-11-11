@@ -3,13 +3,10 @@ require 'key_builder'
 # This class builds the table used by Playfair to encode messages.
 class TableBuilder
   attr_accessor :table
-  attr_reader   :key
 
-  def initialize(key_provider)
-    @key = key_provider.key
+  # Initializes the object.
+  # @param fair_play [String] expects a fairplay compliant key
+  def initialize(fairplay_key)
   end
-
-  private
-
 
 end
