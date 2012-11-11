@@ -15,8 +15,11 @@ describe PlayfairCipher do
   end
 
   describe :encrypt do
+    it 'sanitizes messagess' do
+      subject.encrypt('HI').should == 'BM'
+      subject.encrypt('HI_#@$$^$%^$#%^$%^$%').should == 'BM'
+    end
     context 'when letters are in the same row' do
-    subject { described_class.new ( user_phrase)  }
       it 'should encrypt using the immediate right' do
         subject.encrypt('HI').should == 'BM'
       end

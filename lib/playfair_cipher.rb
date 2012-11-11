@@ -11,10 +11,15 @@ class PlayfairCipher
   end
 
   def encrypt(message)
+    message = sanatize_message(message)
     'BM' if message == 'HI'
   end
 
   private
+
+  def sanatize_message(message)
+    message.upcase.gsub(/[^A-Z]/,'')
+  end
 
   def setup_key( user_phrase )
     kb = KeyBuilder.new( user_phrase )
