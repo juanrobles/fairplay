@@ -28,8 +28,16 @@ describe TableBuilder do
       it 'picks items to the right of each letter' do
         subject.encrypt('EX').should == 'XM'
       end
-      it 'picks first item to the left when encrypting the last item (i.e. handles overflow' do
+      it 'picks leftmost item when encrypting the last item (i.e. handles overflow)' do
         subject.encrypt('GH').should == 'HB'
+      end
+    end
+    context 'when digraph is in the same column' do
+      it 'picks items below each letter' do
+        subject.encrypt('DE').should == 'OD'
+      end
+      it 'picks top item when encrypting the last item (i.e. handles overflow)' do
+        subject.encrypt('OV').should == 'VA'
       end
     end
   end

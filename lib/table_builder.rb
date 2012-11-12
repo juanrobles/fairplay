@@ -16,6 +16,8 @@ class TableBuilder
   def encrypt( digraph )
     if diagraph_same_row?( digraph )
       encrypt_same_row( digraph )
+    elsif digraph_same_col?( digraph )
+      encrypt_same_col( digraph )
     else
       return 'BM' if digraph == 'HI'
     end
@@ -35,11 +37,24 @@ class TableBuilder
     table[digraph[0]][:y] == table[digraph[1]][:y]
   end
 
+  def digraph_same_col?( digraph )
+    table[digraph[0]][:x] == table[digraph[1]][:x]
+  end
+
   def encrypt_same_row( digraph )
     result = ""
     digraph.each_char do |c|
       x = ( table[c][:x] + 1 ) % 5 # in case of overflow
       result <<  fairplay_key_table[table[c][:y]][x]
+    end
+    result
+  end
+
+  def encrypt_same_col( digraph )
+    result = ""
+    digraph.each_char do |c|
+      y = ( table[c][:y] + 1 ) % 5 # in case of overflow
+      result <<  fairplay_key_table[y][table[c][:x]]
     end
     result
   end
