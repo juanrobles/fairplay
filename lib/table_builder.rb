@@ -45,13 +45,13 @@ class TableBuilder
   end
 
   def build_table
-    fairplay_key_table.each_index do |row_index|
-      string_row = fairplay_key_table[row_index]
-      col_pos = 0
+    fairplay_key_table.each_index do |row|
+      string_row = fairplay_key_table[row]
+      col = 0
       string_row.each_char do |item_index|
-        letter = string_row[col_pos]
-        table[letter] = { x: col_pos, y: row_index}
-        col_pos += 1
+        letter = string_row[col]
+        table[letter] = { x: col, y: row}
+        col += 1
       end
     end
   end
