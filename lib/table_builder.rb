@@ -19,7 +19,7 @@ class TableBuilder
     elsif digraph_same_col?( digraph )
       encrypt_same_col( digraph )
     else
-      return 'BM' if digraph == 'HI'
+      encrypt_rectangle( digraph )
     end
   end
 
@@ -57,6 +57,12 @@ class TableBuilder
       result <<  fairplay_key_table[y][table[c][:x]]
     end
     result
+  end
+
+  def encrypt_rectangle( digraph )
+    left  = table[digraph[0]]
+    right = table[digraph[1]]
+    fairplay_key_table[left[:y]][right[:x]] + fairplay_key_table[right[:y]][left[:x]]
   end
 
   def build_table

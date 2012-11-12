@@ -26,10 +26,10 @@ describe TableBuilder do
   describe :encrypt do
     context 'when digraph is in the same row' do
       it 'picks items to the right of each letter' do
-        subject.encrypt('EX').should == 'XM'
+        subject.encrypt('HI').should == 'BM'
       end
       it 'picks leftmost item when encrypting the last item (i.e. handles overflow)' do
-        subject.encrypt('GH').should == 'HB'
+        subject.encrypt('ZP').should == 'TF'
       end
     end
     context 'when digraph is in the same column' do
@@ -38,6 +38,14 @@ describe TableBuilder do
       end
       it 'picks top item when encrypting the last item (i.e. handles overflow)' do
         subject.encrypt('OV').should == 'VA'
+        subject.encrypt('ZW').should == 'TZ'
+      end
+    end
+    context 'when digraph forms a rectangle' do
+      it 'picks items below each letter' do
+        subject.encrypt('DE').should == 'OD'
+        subject.encrypt('OL').should == 'NA'
+        subject.encrypt('TH').should == 'ZB'
       end
     end
   end
