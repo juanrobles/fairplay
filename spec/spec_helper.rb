@@ -5,7 +5,7 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require_relative '../lib/key_builder'
-require_relative '../lib/table_builder'
+require_relative '../lib/digraph_encrypter'
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true

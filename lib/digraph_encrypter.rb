@@ -1,7 +1,7 @@
 require 'key_builder'
 
-# This class builds the table used by Playfair to encode messages.
-class TableBuilder
+# This class encrypts digraphs.
+class DigraphEncrypter
   attr_accessor :table
 
   # Initializes the object.

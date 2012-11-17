@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'key_builder'
 
-describe TableBuilder do
+describe DigraphEncrypter do
 
   let(:phrase) { "Playfajr example!" }
   let(:key_builder) { KeyBuilder.new phrase }
@@ -24,6 +24,7 @@ describe TableBuilder do
   end
 
   describe :encrypt do
+
     context 'when digraph is in the same row' do
       it 'picks items to the right of each letter' do
         subject.encrypt('HI').should == 'BM'

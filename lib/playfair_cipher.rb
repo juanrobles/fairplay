@@ -1,5 +1,5 @@
 require 'key_builder'
-require 'table_builder'
+require 'digraph_encrypter'
 
 class PlayfairCipher
 
@@ -7,28 +7,34 @@ class PlayfairCipher
 
   def initialize( user_phrase )
     setup_key( user_phrase )
-    @table = TableBuilder.new self.key
+    @table = DigraphEncrypter.new self.key
   end
 
   def encrypt( message )
     message = normalize_message( message )
     digraphs = break_into_diagraphs( message )
-    p digraphs
     encrypted = digraphs.map { |diagraph| @table.encrypt( diagraph ) }
     encrypted.join
   end
 
   private
-  def break_into_diagraphs( message )
+  def pad_digraphs( message )
+    detected_repeated_letters = false
     trail_char = ( message.length.odd? ? message[-1] : "" )
     result = message.scan(/\w{2}/).map do |pair|
       if pair[0] == pair[1]
+        detected_repeated_letters = true
         "#{pair[0]}X#{pair[1]}"
       else
         pair
       end
     end
     prepared_message = result.join + trail_char
+    detected_repeated_letters ? pad_digraphs( prepared_message ) : prepared_message
+  end
+
+  def break_into_diagraphs( message )
+    prepared_message = pad_digraphs(message)
     pad_message(prepared_message).scan(/\w{2}/)
   end
 
